@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="kr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Main page</title>
+  </head>
+  <body>
+    <button onclick="onClickUpload()">INPUT</button>
+    <div id="show">
+    </div>
+    <div id="dict">
+    </div>
+  </body>
+
+</html>
+
+<script type="text/javascript">
+ function onClickUpload() {
+    // open file dialog
+    // create
+    var file_input = document.createElement("input");
+    file_input.setAttribute("type", "file");
+    file_input.setAttribute("accept", "image/*");
+    file_input.setAttribute("id", "file_input");
+    file_input.setAttribute("name", "file_input");
+    file_input.setAttribute("onchange", "onChangeFile()");
+    file_input.setAttribute("style", "display:none");
+    // append with invisible container
+    var container = document.createElement("div");
+    container.setAttribute("id", "file_input_container");
+    container.appendChild(file_input);
+    document.body.appendChild(container);
+    // click
+    document.getElementById('file_input').click();
+  }
+
+  function onChangeFile(){
+    let file = document.getElementById('file_input').files[0];
+    let formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/upload', {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      let data = response.json();
+      data.then(data => {
+        console.log(data);
+        
+        // doc.innerHTML=JSON.stringify(data['message']);
+
+        // key = JSON.stringify(data['message'].index);
+        key = data['message']['index'];
+        value = data['message']['data'];
+        // doc.innerHTML = JSON.stringify(data['message'].data);
+        console.log(value);
+        // create table
+      var str = "";
+      var j_max=0;
+      var idx = 0;
+      for (var k in key){
+          str += "<table>";
+          str += "<tr>";
+          str += "<td>";
+          str += key[k];
+          str += " ";
+          str += value[k];
+          str += " ";
+          if(j_max < value[k]){
+            j_max=value[k];
+            idx = k;
+          }
+          str += "</td>";
+          str += "</tr>";
+          str += "</table>";  
+      }
+      document.getElementById('show').innerHTML = str;
+      
+      console.log(j_max);
+      console.log(idx);
+
+      fetch('/load_json?path='+data['message']['index'][idx], {
+        method: 'GET'
+      }).then(response => {
+        let rcv_data = response.json();
+        rcv_data.then(rtn => {
+          console.log(rtn);
+          console.log(rtn['message']);
+          
+          document.getElementById('dict').innerHTML = rtn['message'];
+          str += rtn['message'];
+        });
+      });
+      
+      });
+    });
+  };
+  function onchangeDict(){
+    console.log("changed")
+  };
+</script>
