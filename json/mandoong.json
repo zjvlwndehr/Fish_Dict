@@ -1,0 +1,14 @@
+{
+   "name": "goby",
+   "average_length": "1m",
+   "biological_classification": "gobiidae",
+   "clolor": [
+       "brown"
+   ],
+   "forbidden_length": "15cm",
+   "closed_season": "May~August",
+   "in_season":"Novemver"
+}
+
+
+

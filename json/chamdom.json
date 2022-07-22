@@ -1,0 +1,12 @@
+{
+   "name": "red sea bream",
+   "average_length": "50cm",
+   "biological_classification": "sparidae",
+   "color": [
+      "red",
+      "yellow",
+      "white"
+    ],
+   "forbidden_length": "24cm",
+   "in_season": "Novemver~March"
+}

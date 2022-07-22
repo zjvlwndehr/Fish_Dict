@@ -1,0 +1,12 @@
+{
+   "name": "Squid",
+   "average_length": "30cm",
+   "biological_classification": "ommastrephidae",
+   "color": [
+      "brown",
+      "silvery_white"
+    ],
+   "forbidden_length": "15cm",
+   "closed season": "April~May",
+   "in season": "July~August"
+}
